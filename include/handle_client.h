@@ -1,0 +1,1 @@
+int handle_client_interaction(int client_sockfd, FILE *server_log, client_session_id_t *client_session);
