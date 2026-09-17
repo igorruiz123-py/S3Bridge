@@ -46,7 +46,7 @@ int main(void)
             strcpy(client_session.ip, ip);
             client_session.id = rand();
 
-            fprintf(server_log, "[%s] [INFO] Client id=%d connected from %s:%d\n", get_timestamp(), client_session.id, ip, client_port);
+            fprintf(log, "[%s] [INFO] Client id=%d connected from %s:%d\n", get_timestamp(), client_session.id, ip, client_port);
 
             pid_t child = fork();
 
@@ -58,7 +58,7 @@ int main(void)
 
             if (child == 0)
             {
-                int status = handle_client_interaction(client_sockfd, server_log, &client_session);
+                int status = handle_client_interaction(client_sockfd, log, &client_session);
 
                 close(client_sockfd);
 

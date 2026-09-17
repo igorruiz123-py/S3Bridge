@@ -26,25 +26,8 @@ def close_connection(sockfd: socket.socket):
 
     sockfd.close()
 
-def send_file_name(sockfd: socket.socket, file_name: str):
+def send_metadata(sockfd: socket.socket, file_name: str, file_size: int):
 
-    sockfd.sendall(encode_message(file_name))
+    data = f"METADATA {file_name} {file_size}"
 
-def send_file_size(sockfd: socket.socket, file_size: int):
-
-    sockfd.sendall(encode_message(file_size))
-
-def send_file_content(sockfd: socket.socket, file_path: str):
-
-    with open(file_path, "rb") as f:
-
-        while True:
-
-            bytes_read = f.read()
-
-            if not bytes_read:
-                break
-
-            sockfd.sendall(bytes_read)
-
-    sockfd.sendall("\n".encode("UTF-8"))
+    sockfd.sendall(encode_message(data))

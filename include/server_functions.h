@@ -2,4 +2,4 @@
 #define BACKLOG 5
 #define PORT "8080"
 
-int create_server_socket(const char *port, FILE *server_log);
+int create_server_socket(FILE *server_log);

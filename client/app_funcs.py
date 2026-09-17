@@ -3,8 +3,8 @@ from pathlib import (
 )
 
 def get_file_name(file_path: str):
-
-    return Path(file_path).name
+    
+    return Path(file_path).name.replace(" ", "")
 
 def is_plain_text_file(file_path: Path):
 

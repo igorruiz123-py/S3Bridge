@@ -1,4 +1,5 @@
 #include "include/timestamp.h"
+#include "include/headers.h"
 
 char* get_timestamp() {
     static char buffer[30];
