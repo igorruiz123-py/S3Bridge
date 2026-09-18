@@ -6,9 +6,9 @@ RUN apt-get install -y gcc make
 
 WORKDIR /usr/local/s3bridge
 
-COPY Makefile /usr/local/s3bridge//
+COPY Makefile /usr/local/s3bridge/
 
-COPY include/* /usr/local/s3bridge//include/
+COPY include/* /usr/local/s3bridge/include/
 
 COPY src/* /usr/local/s3bridge/src/
 
