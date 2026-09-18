@@ -1,6 +1,6 @@
-#include "include/headers.h"
-#include "include/server_functions.h"
-#include "include/timestamp.h"
+#include "../include/headers.h"
+#include "../include/server_functions.h"
+#include "../include/timestamp.h"
 
 int create_server_socket(FILE *log)
 {

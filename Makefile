@@ -39,6 +39,14 @@ setup:
 		printf "$(GREEN) [OK] bin/ made!\n$(RESET)"; \
 	fi
 
+	@if [ -d tmp ]; then \
+		printf "$(YELLOW) [INFO] tmp/ directory already exists!\n$(RESET)"; \
+	else \
+		printf "$(YELLOW) [INFO] making tmp/ directory...\n$(RESET)"; \
+		mkdir -p tmp; \
+		printf "$(GREEN) [OK] tmp/ made!\n$(RESET)"; \
+	fi
+
 compile:
 	@printf "$(YELLOW) [INFO] compiling source code...\n$(RESET)"
 	$(MAKE) $(TARGET)

@@ -5,3 +5,5 @@ logs/
 obj/
 
 bin/
+
+tmp/

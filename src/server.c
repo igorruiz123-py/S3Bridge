@@ -1,8 +1,8 @@
-#include "include/headers.h"
-#include "include/server_functions.h"
-#include "include/timestamp.h"
-#include "include/client_session_t.h"
-#include "include/handle_client.h"
+#include "../include/headers.h"
+#include "../include/server_functions.h"
+#include "../include/timestamp.h"
+#include "../include/client_session_t.h"
+#include "../include/handle_client.h"
 
 int main(void)
 {

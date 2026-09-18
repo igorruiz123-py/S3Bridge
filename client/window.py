@@ -12,13 +12,14 @@ from PySide6.QtCore import Qt
 from socket_funcs import (
     open_connection,
     close_connection,
-    send_metadata
+    send_metadata,
+    send_file
 )
 
 from app_funcs import (
     get_file_name,
     is_plain_text_file,
-    file_bytes_size
+    get_file_size
 )
 
 
@@ -206,9 +207,11 @@ class MainWindow(QMainWindow):
 
         if self.sockfd is not None and self.chosen_file is True:
 
-            file_size = file_bytes_size(self.file_path)
+            file_size = get_file_size(self.file_path)
 
             send_metadata(self.sockfd, self.file_name, file_size)
+
+            send_file(self.sockfd, self.file_path)
 
             self.upload_file_status_message.setText("file upload successfully to S3Bridge server")
 

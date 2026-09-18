@@ -23,6 +23,6 @@ def is_plain_text_file(file_path: Path):
     except IOError:
         return False
 
-def file_bytes_size(file_path: str):
+def get_file_size(file_path: str):
 
     return Path(file_path).stat().st_size
