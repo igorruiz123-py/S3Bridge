@@ -159,23 +159,11 @@ int receive_file(int client_sockfd, const char *file_name, size_t file_size)
 }
 
 
-void get_metadata(char *command, FILE *log, client_session_id_t *session)
+int upload_file_s3(const char *file_path)
 {
-    char *tokens[10];
-    int ntokens = 0;
+    char command[252];
 
-    char *token = strtok(command, " ");
+    snprintf(command, sizeof(command), "aws s3 cp '%s' 's3://ruizsocket-server-files/'", file_path);
 
-    while (token != NULL && ntokens < 10)
-    {
-        tokens[ntokens++] = token;
-        token = strtok(NULL, " ");
-    }
-
-    if (ntokens != 3)
-    {
-        return;
-    }
-
-    fprintf(log, "[%s] [INFO] (FILE RECEIVED) IP='%s' ID='%d' FILE_NAME='%s' FILE_SIZE='%s'\n", get_timestamp(), session->ip, session->id, tokens[1], tokens[2]);
+    return system(command);
 }

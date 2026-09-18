@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.sockfd = None
         self.chosen_file = False
         self.file_path = None
+        self.file_size = None
 
         self.setWindowTitle("S3Bridge Client")
         self.setFixedSize(800, 800)
@@ -185,13 +186,22 @@ class MainWindow(QMainWindow):
 
                 if is_plain_text_file(file_path):
 
-                    self.file_name = get_file_name(file_path)
+                    file_size = get_file_size(file_path)
 
-                    self.choose_file_status_message.setText(f"{self.file_name}")
+                    if file_size < 50000:
 
-                    self.chosen_file = True
+                        self.file_size = file_size
 
-                    self.file_path = file_path
+                        self.file_name = get_file_name(file_path)
+
+                        self.choose_file_status_message.setText(f"{self.file_name}")
+
+                        self.chosen_file = True
+
+                        self.file_path = file_path
+
+                    else:
+                        self.choose_file_status_message.setText("Only files less than 50KB allowed")
 
                 else:
                     self.choose_file_status_message.setText("Only plain text files allowed")
@@ -207,9 +217,7 @@ class MainWindow(QMainWindow):
 
         if self.sockfd is not None and self.chosen_file is True:
 
-            file_size = get_file_size(self.file_path)
-
-            send_metadata(self.sockfd, self.file_name, file_size)
+            send_metadata(self.sockfd, self.file_name, self.file_size)
 
             send_file(self.sockfd, self.file_path)
 

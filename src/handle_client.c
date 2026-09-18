@@ -60,8 +60,6 @@ int handle_client_interaction(int client_sockfd, FILE *server_log, client_sessio
             continue;
         }
 
-        fprintf(server_log, "[%s] [INFO] (FILE_RECEIVING) IP='%s' ID='%d' FILE_NAME='%s' FILE_SIZE='%zu'\n", get_timestamp(), client_session->ip, client_session->id, file_name, file_size);
-
         int receive_result = receive_file(client_sockfd, file_name, file_size);
 
         if (receive_result == 0)
@@ -82,6 +80,24 @@ int handle_client_interaction(int client_sockfd, FILE *server_log, client_sessio
 
             break;
         }
+
+        char file_path[512];
+
+        snprintf(file_path, sizeof(file_path), "tmp/%s", file_name);
+
+        int s3_result = upload_file_s3(file_path);
+
+        if (s3_result == 0)
+        {
+            fprintf(server_log, "[%s] [INFO] (FILE UPLOADED TO S3) IP=%s' ID='%d' FILE_NAME='%s' FILE_SIZE='%zu'\n", get_timestamp(), client_session->ip, client_session->id, file_name, file_size);
+        }
+
+        else
+        {
+            fprintf(server_log, "[%s] [ERROR] (FILE FAILED TO UPLOAD TO S3) IP=%s' ID='%d' FILE_NAME='%s' FILE_SIZE='%zu'\n", get_timestamp(), client_session->ip, client_session->id, file_name, file_size);
+        }
+
+        remove(file_path);
     }
 
     return 0;
